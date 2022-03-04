@@ -1,42 +1,46 @@
 const fs = require("fs");
 const { stringify } = require("querystring");
 
-const gender = ["M", "F"];
+const genderMale = "M";
+const genderFemale = "F";
+const gender = [genderMale, genderFemale];
+const domains = ["gmail", "yahoo"]
 const maleNames = ["Krystian", "Marek", "Wojtek"];
 const femaleNames = ["Kasia", "Wiktoria", "Daria"];
 const lastNames = ["Matkowski", "Witkowski", "Dabrowski"];
+let people = [];
 
 const randChoice = (arr) => {
   const randomItem = arr[Math.floor(Math.random() * arr.length)];
   return randomItem;
 };
 
-const people = [];
+const generatePersonData = (records) => {
+  for (let i = 0; i < records; i++) {
+    const personObject = {};
+    personObject.gender = randChoice(gender);
 
-for (let i = 0; i <= 20; i++) {
-  const peopleObject = {};
-  peopleObject.gender = randChoice(gender);
-
-  if (peopleObject.gender === "M") {
-    peopleObject.name = randChoice(maleNames);
-    peopleObject.lastName = randChoice(lastNames);
-    peopleObject.email =
-      `${peopleObject.name}.${peopleObject.lastName}@gmail.com`.toLowerCase();
-  } else {
-    peopleObject.name = randChoice(femaleNames);
-    peopleObject.lastName = randChoice(lastNames);
-    if (
-      peopleObject.lastName.charAt(peopleObject.lastName.length - 1) === "i"
-    ) {
-      peopleObject.lastName = peopleObject.lastName.replace(/i$/, "a");
-      peopleObject.email =
-        `${peopleObject.name}.${peopleObject.lastName}@gmail.com`.toLowerCase();
+    if (personObject.gender === genderMale) {
+      personObject.name = randChoice(maleNames);
+      personObject.lastName = randChoice(lastNames);
+    } else {
+      personObject.name = randChoice(femaleNames);
+      personObject.lastName = randChoice(lastNames).replace(/i$/, "a");
     }
-  }
-  peopleObject.age = Math.floor(Math.random() * 61) + 18;
+    personObject.email =
+      `${personObject.name}.${personObject.lastName}@${randChoice(domains)}.com`.toLowerCase();
+    personObject.age = Math.floor(Math.random() * 61) + 18;
 
-  people.push(peopleObject);
+    people.push(personObject);
+  }
 }
+
+const generateRecords = (records) => {
+  generatePersonData(records)
+  return people;
+}
+
+people = generateRecords(20);
 
 const myJsonString = JSON.stringify(people);
 
