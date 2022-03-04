@@ -20,9 +20,8 @@ for (let i = 0; i <= 20; i++) {
   if (peopleObject.gender === "M") {
     peopleObject.name = randChoice(maleNames);
     peopleObject.lastName = randChoice(lastNames);
-    peopleObject.email = `${randChoice(maleNames).toLowerCase()}.${randChoice(
-      lastNames
-    ).toLowerCase()}@gmail.com`;
+    peopleObject.email =
+      `${peopleObject.name}.${peopleObject.lastName}@gmail.com`.toLowerCase();
   } else {
     peopleObject.name = randChoice(femaleNames);
     peopleObject.lastName = randChoice(lastNames);
@@ -30,10 +29,9 @@ for (let i = 0; i <= 20; i++) {
       peopleObject.lastName.charAt(peopleObject.lastName.length - 1) === "i"
     ) {
       peopleObject.lastName = peopleObject.lastName.replace(/i$/, "a");
+      peopleObject.email =
+        `${peopleObject.name}.${peopleObject.lastName}@gmail.com`.toLowerCase();
     }
-    peopleObject.email = `${randChoice(femaleNames).toLowerCase()}.${randChoice(
-      lastNames
-    ).toLowerCase()}@gmail.com`;
   }
   peopleObject.age = Math.floor(Math.random() * 61) + 18;
 
