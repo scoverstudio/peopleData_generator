@@ -15,28 +15,28 @@ const randChoice = (arr) => {
   return randomItem;
 };
 
-const generatePersonData = (records) => {
-  for (let i = 0; i < records; i++) {
-    const personObject = {};
-    personObject.gender = randChoice(gender);
+const generatePersonData = () => {
+  const personObject = {};
+  personObject.gender = randChoice(gender);
 
-    if (personObject.gender === genderMale) {
-      personObject.name = randChoice(maleNames);
-      personObject.lastName = randChoice(lastNames);
-    } else {
-      personObject.name = randChoice(femaleNames);
-      personObject.lastName = randChoice(lastNames).replace(/i$/, "a");
-    }
-    personObject.email =
-      `${personObject.name}.${personObject.lastName}@${randChoice(domains)}.com`.toLowerCase();
-    personObject.age = Math.floor(Math.random() * 61) + 18;
-
-    people.push(personObject);
+  if (personObject.gender === genderMale) {
+    personObject.name = randChoice(maleNames);
+    personObject.lastName = randChoice(lastNames);
+  } else {
+    personObject.name = randChoice(femaleNames);
+    personObject.lastName = randChoice(lastNames).replace(/i$/, "a");
   }
+  personObject.email =
+    `${personObject.name}.${personObject.lastName}@${randChoice(domains)}.com`.toLowerCase();
+  personObject.age = Math.floor(Math.random() * 61) + 18;
+
+  people.push(personObject);
 }
 
 const generateRecords = (records) => {
-  generatePersonData(records)
+  for (let i = 0; i < records; i++) {
+    generatePersonData()
+  }
   return people;
 }
 
