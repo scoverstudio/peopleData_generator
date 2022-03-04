@@ -19,17 +19,22 @@ for (let i = 0; i <= 20; i++) {
 
   if (peopleObject.gender === "M") {
     peopleObject.name = randChoice(maleNames);
+    peopleObject.lastName = randChoice(lastNames);
     peopleObject.email = `${randChoice(maleNames).toLowerCase()}.${randChoice(
       lastNames
     ).toLowerCase()}@gmail.com`;
   } else {
     peopleObject.name = randChoice(femaleNames);
+    peopleObject.lastName = randChoice(lastNames);
+    if (
+      peopleObject.lastName.charAt(peopleObject.lastName.length - 1) === "i"
+    ) {
+      peopleObject.lastName = peopleObject.lastName.replace(/i$/, "a");
+    }
     peopleObject.email = `${randChoice(femaleNames).toLowerCase()}.${randChoice(
       lastNames
     ).toLowerCase()}@gmail.com`;
   }
-
-  peopleObject.lastName = randChoice(lastNames);
   peopleObject.age = Math.floor(Math.random() * 61) + 18;
 
   people.push(peopleObject);
