@@ -1,14 +1,12 @@
 const fs = require("fs");
-const { stringify } = require("querystring");
 
 const genderMale = "M";
 const genderFemale = "F";
 const gender = [genderMale, genderFemale];
-const domains = ["gmail", "yahoo"]
+const domains = ["gmail.com", "yahoo.com", "wp.pl"]
 const maleNames = ["Krystian", "Marek", "Wojtek"];
 const femaleNames = ["Kasia", "Wiktoria", "Daria"];
 const lastNames = ["Matkowski", "Witkowski", "Dabrowski"];
-let people = [];
 
 const randChoice = (arr) => {
   const randomItem = arr[Math.floor(Math.random() * arr.length)];
@@ -27,20 +25,15 @@ const generatePersonData = () => {
     personObject.lastName = randChoice(lastNames).replace(/i$/, "a");
   }
   personObject.email =
-    `${personObject.name}.${personObject.lastName}@${randChoice(domains)}.com`.toLowerCase();
+    `${personObject.name}.${personObject.lastName}@${randChoice(domains)}`.toLowerCase();
   personObject.age = Math.floor(Math.random() * 61) + 18;
 
-  people.push(personObject);
+  return personObject;
 }
 
-const generateRecords = (records) => {
-  for (let i = 0; i < records; i++) {
-    generatePersonData()
-  }
-  return people;
-}
+const generateRecords = (length) => Array.from({ length }, generatePersonData);
 
-people = generateRecords(20);
+const people = generateRecords(20);
 
 const myJsonString = JSON.stringify(people);
 
